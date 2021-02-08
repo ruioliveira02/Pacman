@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Tarefa4</title><link href="ocean.css" rel="stylesheet" type="text/css" title="Ocean" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><ul class="links" id="page-menu"><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul><p class="caption empty">&nbsp;</p></div><div id="content"><div id="module-header"><table class="info"><tr><th>Safe Haskell</th><td>Safe</td></tr></table><p class="caption">Tarefa4</p></div><div id="description"><p class="caption">Description</p><div class="doc"><p>Module responsible for handling the passing of time in the game.</p></div></div><div id="synopsis"><details id="syn"><summary>Synopsis</summary><ul class="details-toggle" data-details-id="syn"><li class="src short"><a href="#v:isInteger">isInteger</a> :: Double -&gt; Bool</li><li class="src short"><a href="#v:isInverse">isInverse</a> :: Double -&gt; Bool</li><li class="src short"><a href="#v:applyMovesAux">applyMovesAux</a> :: <a href="Types.html#t:State" title="Types">State</a> -&gt; [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)] -&gt; [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)] -&gt; (<a href="Types.html#t:State" title="Types">State</a>, [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)])</li><li class="src short"><a href="#v:applyMoves">applyMoves</a> :: <a href="Types.html#t:State" title="Types">State</a> -&gt; [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)] -&gt; <a href="Types.html#t:State" title="Types">State</a></li><li class="src short"><a href="#v:numberOfMoves">numberOfMoves</a> :: Int -&gt; Double -&gt; Int</li><li class="src short"><a href="#v:getMove">getMove</a> :: Int -&gt; <a href="Types.html#t:Player" title="Types">Player</a> -&gt; (Int, <a href="Types.html#t:Play" title="Types">Play</a>)</li><li class="src short"><a href="#v:passTimeAux">passTimeAux</a> :: Int -&gt; <a href="Types.html#t:State" title="Types">State</a> -&gt; <a href="Types.html#t:State" title="Types">State</a></li><li class="src short"><a href="#v:passTime-39-">passTime'</a> :: Int -&gt; <a href="Types.html#t:State" title="Types">State</a> -&gt; <a href="LazyBFS.html#t:Memoization" title="LazyBFS">Memoization</a> -&gt; <a href="Types.html#t:State" title="Types">State</a></li><li class="src short"><a href="#v:passTime">passTime</a> :: Int -&gt; <a href="Types.html#t:State" title="Types">State</a> -&gt; <a href="Types.html#t:State" title="Types">State</a></li><li class="src short"><a href="#v:rotateGhosts">rotateGhosts</a> :: <a href="Types.html#t:State" title="Types">State</a> -&gt; [<a href="Types.html#t:Play" title="Types">Play</a>] -&gt; <a href="Types.html#t:State" title="Types">State</a></li></ul></details></div><div id="interface"><h1>Documentation</h1><div class="top"><p class="src"><a id="v:isInteger" class="def">isInteger</a> <a href="#v:isInteger" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: Double</td><td class="doc"><p>The given number</p></td></tr><tr><td class="src">-&gt; Bool</td><td class="doc"><p>Whether the given number is an integer or not</p></td></tr></table></div><div class="doc"><p>Returns whether a given number is an integer or not</p><h2><em>Example</em></h2><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>isInteger 2.0
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>True
+</code></strong></pre><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>isInteger 2.5
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>False
+</code></strong></pre></div></div><div class="top"><p class="src"><a id="v:isInverse" class="def">isInverse</a> <a href="#v:isInverse" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: Double</td><td class="doc"><p>The given number</p></td></tr><tr><td class="src">-&gt; Bool</td><td class="doc"><p>Whether the given number is an inverse or not</p></td></tr></table></div><div class="doc"><p>Returns whether a given number is the inverse of any integer, i.e., if it is of the form
+ <code>1/d</code>, where d is an integer</p><h2><em>Example</em></h2><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>isInverse 0.25
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>True
+</code></strong></pre><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>isInverse 2
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>False
+</code></strong></pre></div></div><div class="top"><p class="src"><a id="v:applyMovesAux" class="def">applyMovesAux</a> <a href="#v:applyMovesAux" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The given state</p></td></tr><tr><td class="src">-&gt; [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)]</td><td class="doc"><p>The set of moves to be played, and the number of times each one is to be played</p></td></tr><tr><td class="src">-&gt; [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)]</td><td class="doc"><p>The accumulating parameter, corresponding to the remaining set of moves</p></td></tr><tr><td class="src">-&gt; (<a href="Types.html#t:State" title="Types">State</a>, [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)])</td><td class="doc"><p>The <code>State</code> resulting from applying each move once, and the remaining set of moves</p></td></tr></table></div><div class="doc"><p>Auxiliary function to <code>applyMoves</code>. Given a state, and a list of moves for the player, alongside the number
+ of times each move is to be executed, returns the state which results from applying each move exactly once,
+ alongside wih the remaining moves that still need applying.</p><p>In other words, given a set of moves, each one having to be done a certain amount of times, plays each move exactly
+ once, and returns the resulting state and the remaining set of moves.</p><p>It uses an accumulating parameter to store the remaining set of moves</p><h2><em>Example</em></h2><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>applyMovesAux (loadMaze &quot;../maps/5.txt&quot;) [(2, Move 0 R), (1, Move 1 D)] []
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>(####################
+</code></strong>     #. &lt;........#..... #
+     #...##..#.#.#.....M#
+     #.......#...#...## #
+     #.#......#.#. ....M#
+     #....#.......#.#...#
+     #............#.#...#
+     ##o..          ....#
+     #.### ###  ### .#..#
+      .... #     M# .... 
+      #... ######## ##.. 
+     #...#          ....#
+     #..#...#..#........#
+     #.....##....#....#.#
+     #....o...........###
+     #...#....#.#.......#
+     #.##....#.......#..#
+     #...........#......#
+     ##....#............#
+     ####################
+     Level: 1
+     Players: 
+     ID:3 Points:0 Lives:1
+     ID:2 Points:0 Lives:1
+     ID:1 Points:0 Lives:1
+     ID:0 Points:0 Lives:1
+     ,[(0,Move 1 D),(1,Move 0 R)]) @
+</pre></div></div><div class="top"><p class="src"><a id="v:applyMoves" class="def">applyMoves</a> <a href="#v:applyMoves" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The given state</p></td></tr><tr><td class="src">-&gt; [(Int, <a href="Types.html#t:Play" title="Types">Play</a>)]</td><td class="doc"><p>The set of moves, alongside the number of times each one is to be played</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The resulting state</p></td></tr></table></div><div class="doc"><p>Given a state and a set of moves, as well as the number of times each one is to be played,
+ returns the state which results from applying all the moves.</p><h2><em>Note</em></h2><p>The players move one square at a time, meaning that, should one player move twice, and another only once,
+ firstly both players move once, and only then does the first player move again.</p><h2><em>Example</em></h2><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>applyMoves (loadMaze &quot;../maps/5.txt&quot;) [(2, Move 0 R), (1, Move 1 D)]
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>####################
+</code></strong>    #.  {.......#..... #
+    #...##..#.#.#.....M#
+    #.......#...#...## #
+    #.#......#.#. ....M#
+    #....#.......#.#...#
+    #............#.#...#
+    ##o..          ....#
+    #.### ###  ### .#..#
+     .... #     M# .... 
+     #... ######## ##.. 
+    #...#          ....#
+    #..#...#..#........#
+    #.....##....#....#.#
+    #....o...........###
+    #...#....#.#.......#
+    #.##....#.......#..#
+    #...........#......#
+    ##....#............#
+    ####################
+    Level: 1
+    Players: 
+    ID:3 Points:0 Lives:1
+    ID:2 Points:0 Lives:1
+    ID:1 Points:0 Lives:1
+    ID:0 Points:1 Lives:1
+</pre></div></div><div class="top"><p class="src"><a id="v:numberOfMoves" class="def">numberOfMoves</a> :: Int -&gt; Double -&gt; Int <a href="#v:numberOfMoves" class="selflink">#</a></p><div class="doc"><p>Given the current step and the player's speed, returns the number of times the player should move</p><h2><em>Examples</em></h2><pre class="screen"><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>numberOfMoves 1 1
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>1
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>numberOfMoves 1 0.5
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>0
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>numberOfMoves 1 2
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>2
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>numberOfMoves 4 0.5
+</code></strong><code class="prompt">&gt;&gt;&gt; </code><strong class="userinput"><code>1
+</code></strong></pre></div></div><div class="top"><p class="src"><a id="v:getMove" class="def">getMove</a> <a href="#v:getMove" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: Int</td><td class="doc"><p>The given step</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:Player" title="Types">Player</a></td><td class="doc"><p>The given player</p></td></tr><tr><td class="src">-&gt; (Int, <a href="Types.html#t:Play" title="Types">Play</a>)</td><td class="doc"><p>The player's move and how often they should move</p></td></tr></table></div><div class="doc"><p>Given the current step and a player, returns its move (<code><a href="Types.html#t:Play" title="Types">Play</a></code>, based on their orientation), 
+   as well as the number of times it is to be executed</p></div></div><div class="top"><p class="src"><a id="v:passTimeAux" class="def">passTimeAux</a> <a href="#v:passTimeAux" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: Int</td><td class="doc"><p>The current step</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The original state</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The resulting state</p></td></tr></table></div><div class="doc"><p>Given the current state and step, returns the state which resulting from the passing of time.
+   This function moves the players in the direction they are facing.</p></div></div><div class="top"><p class="src"><a id="v:passTime-39-" class="def">passTime'</a> <a href="#v:passTime-39-" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: Int</td><td class="doc"><p>The current step</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The current state</p></td></tr><tr><td class="src">-&gt; <a href="LazyBFS.html#t:Memoization" title="LazyBFS">Memoization</a></td><td class="doc"><p>The <code><a href="LazyBFS.html#t:Memoization" title="LazyBFS">Memoization</a></code> of the state (cf. <a href="Tarefa5.html">Tarefa5</a>)</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The resulting state</p></td></tr></table></div><div class="doc"><p>Given the current state, step and a <code><a href="LazyBFS.html#t:Memoization" title="LazyBFS">Memoization</a></code>, returns the state which resulting from the passing of time
+   , as well as having in mind the ghosts movements.</p></div></div><div class="top"><p class="src"><a id="v:passTime" class="def">passTime</a> <a href="#v:passTime" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: Int</td><td class="doc"><p>The current step</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The current state</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The resulting state</p></td></tr></table></div><div class="doc"><p>Given the current state and step, returns the state which resulting from the passing of time
+   , as well as having in mind the ghosts movements.</p></div></div><div class="top"><p class="src"><a id="v:rotateGhosts" class="def">rotateGhosts</a> <a href="#v:rotateGhosts" class="selflink">#</a></p><div class="subs arguments"><p class="caption">Arguments</p><table><tr><td class="src">:: <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The given state</p></td></tr><tr><td class="src">-&gt; [<a href="Types.html#t:Play" title="Types">Play</a>]</td><td class="doc"><p>The list of moves</p></td></tr><tr><td class="src">-&gt; <a href="Types.html#t:State" title="Types">State</a></td><td class="doc"><p>The resulting state</p></td></tr></table></div><div class="doc"><p>Given a state and a list of moves, returns the state resulting from rotating all the ghosts
+   in the map.</p><h2><em>Note</em></h2><p>This function assumes that the list of moves only refers to ghosts.</p></div></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.22.0</p></div></body></html>
