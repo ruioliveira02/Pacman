@@ -38,6 +38,12 @@ Each menu has been given each independent file and consists of two main function
 
 # Screenshots
 
+![](img/screenshots/MainMenu.png)
+![](img/screenshots/Instructions.png)
+![](img/screenshots/Random.png)
+![](img/screenshots/SelectPlayer.png)
+![](img/screenshots/Game.png)
+
 # Further work
 
 In order to further improve the project, one could implement sounds (although it would require major refactoring), improve the efficiency of the bot and of `Tarefa1`, which was not possible due to type constraints given by the project statement.
